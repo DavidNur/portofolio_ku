@@ -1,0 +1,23 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import Hero from "../components/Hero.astro";
+import FooterHero from "../components/FooterHero.astro";
+import About from "../components/About.astro";
+---
+
+<MainLayout>
+  <main
+    class="relative min-h-screen overflow-hiddenmx-auto max-w-screen-2xl bg-bg border-x border-text/5"
+  >
+    <Hero />
+    <About />
+    <FooterHero />
+    <section class="relative h-64 w-full bg-bg">
+      <div
+        class="absolute bottom-0 left-10 -z-10 font-display text-[15rem] leading-none text-text/5 md:text-[20rem]"
+      >
+        03
+      </div>
+    </section>
+  </main>
+</MainLayout>
