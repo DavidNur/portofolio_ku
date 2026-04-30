@@ -1,23 +1,48 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
-import FooterHero from "../components/FooterHero.astro";
 import About from "../components/About.astro";
+import Services from "../components/Services.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<MainLayout>
-  <main
-    class="relative min-h-screen overflow-hiddenmx-auto max-w-screen-2xl bg-bg border-x border-text/5"
-  >
+<MainLayout title="Daniels - Developer Portfolio">
+  <Navbar />
+  <main>
     <Hero />
     <About />
-    <FooterHero />
-    <section class="relative h-64 w-full bg-bg">
-      <div
-        class="absolute bottom-0 left-10 -z-10 font-display text-[15rem] leading-none text-text/5 md:text-[20rem]"
-      >
-        03
+    <Services />
+
+    <section
+      id="works"
+      class="py-24 text-center bg-white border-t border-gray-100 reveal"
+    >
+      <h2 class="text-3xl font-display font-bold">Portfolio Works</h2>
+      <p class="text-gray-400 mt-4">Showcasing our best projects soon.</p>
+    </section>
+
+    <section id="contact" class="py-24 bg-gray-50 reveal">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="text-4xl font-display font-bold mb-8">Get In Touch</h2>
+        <p class="text-gray-500 mb-12">
+          I'm currently available for freelance work. If you have a project that
+          you want to get started, think you need my help with something or just
+          fancy saying hey, then get in touch.
+        </p>
+        <a
+          href="mailto:hello@daniels.com"
+          class="inline-block px-12 py-4 bg-slate-900 text-white font-bold rounded-full transition-transform hover:scale-105 active:scale-95 shadow-xl"
+        >
+          Say Hello
+        </a>
       </div>
     </section>
   </main>
+
+  <footer class="py-12 bg-slate-950 text-white text-center">
+    <p class="text-slate-500 text-sm tracking-widest uppercase">
+      Copy Right 2026 &copy; By Daniels
+    </p>
+  </footer>
 </MainLayout>

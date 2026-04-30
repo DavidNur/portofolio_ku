@@ -1,115 +1,130 @@
 ---
-
+// Hero.astro
 ---
 
-<section class="relative min-h-[90vh] w-full px-6 pt-12 md:px-12 lg:px-24">
-  <!-- Doodles/Icons -->
-  <div class="absolute right-[20%] top-[10%] opacity-20 md:opacity-100">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="64"
-      height="64"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="text-text"
-      ><path
-        d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"
-      ></path><circle cx="9" cy="9" r="2"></circle></svg
-    >
-  </div>
-  <div class="absolute left-[10%] top-[5%] opacity-20 md:opacity-100">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="48"
-      height="48"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="text-text"
-      ><rect width="16" height="12" x="2" y="8" rx="2"></rect><path
-        d="M22 17V9a2 2 0 0 0-2-2h-3"></path><path d="M15 13a3 3 0 1 0-3-3"
-      ></path></svg
-    >
+<section
+  id="home"
+  class="relative h-screen w-full flex flex-col justify-center items-center text-white overflow-hidden"
+>
+  {/* Background Image with Overlay */}
+  <div
+    class="absolute inset-0 bg-cover bg-center z-[-1] animate-slow-zoom"
+    style="background-image: url('/public/bg2.jpg');"
+  >
+    <div class="absolute inset-0 bg-slate-900/40"></div>
   </div>
 
-  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-    <!-- Left Content -->
-    <div class="flex flex-col justify-center pt-20">
-      <div class="relative">
-        <span class="absolute -top-12 left-0 text-6xl font-display text-primary"
-          >"</span
-        >
-        <h1
-          class="font-display text-[7rem] leading-[0.8] tracking-tighter text-text md:text-[10rem]"
-        >
-          PORTO<br />FOLIO<span class="text-primary">.</span>
-        </h1>
-      </div>
-
-      <div class="mt-8 flex items-center gap-4">
-        <div
-          class="bg-primary px-6 py-2 font-display text-xl uppercase brutal-border"
-        >
-          Web Developer
-        </div>
-        <div class="hidden h-[2px] flex-grow bg-text md:block"></div>
-      </div>
-
-      <div class="mt-12 flex items-center gap-4">
-        <div
-          class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-text font-bold"
-        >
-          &gt;
-        </div>
-        <span class="font-display text-2xl uppercase">David Nur Hidayat</span>
-      </div>
+  <div class="text-center">
+    <h1
+      class="text-5xl md:text-7xl font-display font-extrabold mb-4 opacity-0 transform translate-y-4 transition-all duration-1000 delay-300"
+      id="hero-title"
+    >
+      Hello
+    </h1>
+    <div class="text-4xl md:text-5xl font-light tracking-wide mb-8 h-[1.2em]">
+      I Am <span class="font-semibold" id="typewriter"></span>
+      <span class="typewriter-cursor"></span>
     </div>
 
-    <!-- Right Content (Image) -->
-    <div class="relative flex items-center justify-center lg:justify-end">
-      <!-- Big "01" background -->
-
-      <div
-        class="relative h-[500px] w-full max-w-[400px] md:h-[600px] md:max-w-[450px]"
-      >
-        <!-- Yellow Backdrop circle -->
-        <div
-          class="absolute bottom-0 right-0 h-[90%] w-full rounded-b-full bg-primary -z-0"
-        >
-        </div>
-
-        <!-- Profile Image Placeholder (Using a high-quality stylized male photo) -->
-        <img
-          src="\profile1.jpg"
-          alt="Randy Fahmi"
-          class="relative z-10 h-full w-full object-cover grayscale"
-          style="mask-image: linear-gradient(to bottom, black 80%, transparent 100%);"
-        />
-
-        <!-- Tag -->
-        <div
-          class="absolute bottom-10 right-0 z-20 max-w-[150px] text-right font-accent italic leading-tight text-text"
-        >
-          <p class="text-sm font-light uppercase tracking-widest">
-            Selected Best
-          </p>
-          <p class="text-lg font-bold">Web Developer</p>
-        </div>
-      </div>
-
-      <!-- Vertical Sidebar Text -->
-      <div
-        class="absolute -right-8 top-1/2 -translate-y-1/2 rotate-90 whitespace-nowrap font-accent text-xs font-bold uppercase tracking-[0.2em] text-text/40 md:-right-12"
-      >
-        RANDY &copy; 2025
-      </div>
+    <div class="flex justify-center space-x-6 mt-12" id="social-icons">
+      {
+        [
+          {
+            name: "facebook",
+            href: "https://www.facebook.com/davidnur.hidayat.73",
+            path: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
+          },
+          {
+            name: "instagram",
+            href: "https://www.instagram.com/dnhidayat11/",
+            path: "M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5z M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z M17.5 6.5h.01",
+          },
+          {
+            name: "linkedin",
+            href: "https://www.linkedin.com/in/david-nur-hidayat-09944a377/",
+            path: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 2a2 2 0 1 1 0 4 2 2 0 0 1 0-4z",
+          },
+        ].map((social, i) => (
+          <a
+            href={social.href}
+            target="_blank"
+            class="social-icon w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm transition-all hover:bg-white hover:text-slate-900 transform translate-y-8 opacity-0"
+            data-index={i}
+            aria-label={social.name}
+          >
+            <span class="capitalize sr-only">{social.name}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d={social.path} />
+            </svg>
+          </a>
+        ))
+      }
     </div>
+  </div>
+
+  <div
+    class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50"
+  >
+    <div class="w-[1px] h-20 bg-white mx-auto"></div>
   </div>
 </section>
+
+<style>
+  @keyframes slow-zoom {
+    from {
+      transform: scale(1.1);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  .animate-slow-zoom {
+    animation: slow-zoom 1.5s ease-out forwards;
+  }
+</style>
+
+<script>
+  // Hero Animations
+  window.addEventListener("DOMContentLoaded", () => {
+    const title = document.getElementById("hero-title");
+    if (title) {
+      title.classList.remove("opacity-0", "translate-y-4");
+    }
+
+    const icons = document.querySelectorAll(".social-icon");
+    icons.forEach((icon, i) => {
+      setTimeout(
+        () => {
+          icon.classList.remove("opacity-0", "translate-y-8");
+        },
+        800 + i * 100,
+      );
+    });
+
+    // Typewriter Effect
+    const typewriter = document.getElementById("typewriter");
+    const textToType = "Web Developer";
+    let index = 0;
+
+    function type() {
+      if (index < textToType.length) {
+        if (typewriter) typewriter.textContent += textToType.charAt(index);
+        index++;
+        setTimeout(type, 150);
+      }
+    }
+    setTimeout(type, 1000);
+  });
+</script>

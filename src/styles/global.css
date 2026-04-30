@@ -1,31 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Archivo Black", sans-serif;
-  --font-sans: "Inter", sans-serif;
-  --font-accent: "Space Grotesk", sans-serif;
-
-  --color-primary: #ffc800;
-  --color-bg: #f2f2f2;
-  --color-text: #1a1a1a;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-bg text-text font-sans selection:bg-primary/30;
+    @apply font-sans text-gray-900 bg-white antialiased;
   }
 }
 
-.brutal-border {
-  @apply border-2 border-text;
+.typewriter-cursor {
+  @apply inline-block w-[2px] h-[1.2em] bg-white ml-1 align-middle;
+}
+#google_translate_element,
+.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
 }
 
-.brutal-shadow {
-  box-shadow: 4px 4px 0px 0px #1a1a1a;
-}
-
-.vertical-text {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
+body {
+  top: 0 !important;
 }
