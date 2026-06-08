@@ -1,0 +1,235 @@
+---
+import {Image} from "astro:assets";
+
+const allImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/*.{jpeg,jpg,png,gif,webp,svg}");
+
+const projects = [
+  {
+    title: "Emokid",
+    category: "Analysis System",
+    url: "https://emokid.sinus.ac.id/",
+    images: [
+      "/emokid.png",
+      "/emokid2.png",
+      "/emokid3.png",
+    ],
+    tags: ["Laravel", "Vue.js", "MySql", "Groq API", "Tailwind CSS"],
+  },
+
+  {
+    title: "Assalaam Hypermarket",
+    category: "Card Member System",
+    images: [
+      "/assalaam.png",
+      "/assalaam2.png",
+      "/assalaam3.png",
+    ],
+    tags: ["Laravel", "MySql", "Tailwind"],
+  },
+
+  {
+    title: "Timesheet Driver System",
+    category: "Driver Reporting System",
+    images: [
+     "/tds.png",
+      "/tds2.png",
+      "/tds3.png",
+    ],
+    tags: ["PHP", "MySql", "Bootstrap"],
+  },
+
+  {
+    title: "Process Planning Sheet",
+    category: "Monitoring System",
+    images: [
+     "/pps.png",
+      "/pps2.png",
+      "/pps3.png",
+    ],
+    tags: ["PHP", "MySql", "Bootstrap"],
+  },
+];
+---
+
+<section id="projects" class="py-40 bg-black/5 dark:bg-black/20">
+  <div class="max-w-7xl mx-auto px-16">
+    <!-- Header -->
+    <div
+      class="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-12 reveal"
+    >
+      <div>
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-8 h-[1px] bg-[#ff2b2b]"></div>
+
+          <h2
+            class="text-[#ff2b2b] font-bold tracking-[0.3em] uppercase text-[11px]"
+          >
+            Selected Work
+          </h2>
+        </div>
+
+        <h3
+          class="text-5xl md:text-7xl font-black tracking-tighter dark:text-white text-black"
+        >
+          LATEST PROJECTS
+        </h3>
+      </div>
+
+      <a
+        href="#"
+        class="group flex items-center gap-6 text-[10px] font-bold tracking-[0.3em] uppercase opacity-40 hover:opacity-100 transition-all"
+      >
+        Explore All Works
+
+        <div class="flex items-center gap-1 group-hover:gap-3 transition-all">
+          <div
+            class="w-12 h-[1px] bg-black/40 dark:bg-white/40 group-hover:bg-[#ff2b2b] transition-all"
+          >
+          </div>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="group-hover:text-[#ff2b2b] transition-colors"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </div>
+      </a>
+    </div>
+
+    <!-- Projects -->
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 gap-1 px-1 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5"
+    >
+      {
+        projects.map((project, index) => (
+          <div
+            class={`reveal delay-${(index % 2 + 1) * 100} bg-white dark:bg-[#050505] p-10 group`}
+          >
+            <!-- Image Carousel -->
+            <div class="relative aspect-[4/3] overflow-hidden rounded-sm cursor-pointer border border-black/5 dark:border-white/5">
+              
+              <!-- Slider -->
+              <div
+                class="project-slider flex h-full"
+                style={`animation-duration: ${18 + index * 3}s`}
+              >{[...project.images, ...project.images].map((imagePath) => {
+                  
+                  // PERBAIKAN DI SINI: Otomatis ubah "/emokid.png" menjadi "/src/assets/emokid.png" di latar belakang
+                  let sanitizedPath = imagePath;
+                  if (!sanitizedPath.startsWith("/src/assets/")) {
+                    const cleanName = sanitizedPath.startsWith("/") ? sanitizedPath.slice(1) : sanitizedPath;
+                    sanitizedPath = `/src/assets/${cleanName}`;
+                  }
+                  
+                  // Validasi kecocokan file setelah path dibersihkan
+                  if (!allImages[sanitizedPath]) {
+                    throw new Error(`"${sanitizedPath}" tidak ditemukan di folder src/assets/. Pastikan file fisik gambar sudah kamu pindahkan ke src/assets/`);
+                  }
+                  
+                  return (
+                    <Image
+                      src={allImages[sanitizedPath]()}
+                      format="webp"
+                      quality={80}
+                      alt={project.title}
+                      class="w-[500px] h-full object-cover flex-shrink-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700"
+                    />
+                  );
+                })}
+              </div>
+
+              <!-- Project Number -->
+              <div class="absolute top-4 left-4 z-30 text-[40px] font-black text-white/10 select-none group-hover:text-[#ff2b2b]/20 transition-colors">
+                0{index + 1}
+              </div>
+
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
+                <span class="text-[#ff2b2b] text-[10px] font-bold tracking-[0.3em] uppercase mb-1">
+                  {project.category}
+                </span>
+
+                <h4 class="text-white text-3xl font-black tracking-tighter mb-4">
+                  {project.title}
+                </h4>
+              </div>
+
+              <!-- Corner Decor -->
+              <div class="absolute bottom-4 right-4 w-10 h-10 border-b border-r border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-500">
+              </div>
+            </div>
+
+            <!-- Bottom -->
+            <div class="mt-8 flex justify-between items-start">
+              <div>
+                <span class="text-2xl font-black tracking-tighter dark:text-white text-black block mb-2">
+                  {project.title}
+                </span>
+
+                <div class="flex flex-wrap gap-4">
+                  {project.tags.map((tag) => (
+                    <span class="text-[9px] font-bold tracking-widest uppercase opacity-40">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="w-12 h-12 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center group-hover:bg-[#ff2b2b] group-hover:border-[#ff2b2b] transition-all">
+                <a 
+                  href={project.url} target="_blank" rel="noopener noreferrer" >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="group-hover:text-white transition-colors rotate-[-45deg]"
+                >
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes projectSlide {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .project-slider {
+    width: max-content;
+    animation: projectSlide linear infinite;
+  }
+
+ .group:hover .project-slider {
+    animation-play-state: paused;
+  }
+</style>

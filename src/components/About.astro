@@ -1,103 +1,107 @@
 ---
-// About.astro
+import { Icon } from "astro-icon/components";
+
+const skills = [
+  {
+    name: "Laravel",
+    icon: "logos:laravel",
+  },
+  {
+    name: "Vue.js",
+    icon: "logos:vue",
+  },
+  {
+    name: "Astro.js",
+    icon: "logos:astro-icon",
+  },
+  {
+    name: "Tailwind CSS",
+    icon: "logos:tailwindcss-icon",
+  },
+  {
+    name: "JavaScript",
+    icon: "logos:javascript",
+  },
+  {
+    name: "PHP",
+    icon: "logos:php",
+  },
+  {
+    name: "MySQL",
+    icon: "logos:mysql",
+  },
+  {
+    name: "REST API",
+    icon: "carbon:api",
+  },
+  {
+    name: "GitHub",
+    icon: "logos:github-icon",
+  },
+];
 ---
 
-<section id="about" class="py-24 mx-10 bg-white overflow-hidden">
-  <div
-    class="max-w-7xl mx-auto px-6 grid md:grid-cols-[45%_55%] gap-20 items-center"
-  >
-    {/* Profile Image Container */}
-    <div class="reveal relative group pr-4 pb-4">
-      <div
-        class="absolute -bottom-6 -left-6 w-1/2 h-1/2 bg-slate-50 border-[20px] border-white -z-10 shadow-lg"
-      >
-      </div>
-      <img
-        src="/public/profile2.jpg"
-        alt="Profile Portrait"
-        class="w-full h-auto object-cover shadow-2xl relative z-10 filter grayscale hover:grayscale-0 transition-all duration-700"
-      />
-    </div>
-
-    {/* Content Container */}
-    <div class="reveal delay-200">
-      <h2 class="text-4xl font-display font-bold mb-2">About Me.</h2>
-      <p
-        class="text-gray-400 font-medium text-xs tracking-widest uppercase mb-6"
-      >
-        WEB DEVELOPER
-      </p>
-
-      <p class="text-gray-500 leading-relaxed mb-10 text-lg">
-        I am <span class="font-bold text-slate-900">David Nur Hidayat</span> Lorem
-        Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-        Ipsum has been the industry's standard dummy text ever since the 1500s, when
-        an unknown printer took a galley of type and scrambled it to make a type specimen
-        book.
-      </p>
-
-      <div class="space-y-4 mb-10">
-        {
-          [
-            { label: "Web Design", percentage: 95 },
-            { label: "Branding", percentage: 80 },
-            { label: "Development", percentage: 90 },
-          ].map((skill) => (
-            <div class="mb-6">
-              <div class="flex justify-between mb-2">
-                <span class="text-sm font-semibold tracking-tight uppercase">
-                  {skill.label}
-                </span>
-                <span class="text-sm font-medium">{skill.percentage}%</span>
-              </div>
-              <div class="h-[6px] w-full bg-gray-100 rounded-full overflow-hidden shadow-inner">
-                <div
-                  class="skill-progress h-full bg-slate-900 rounded-full transition-all duration-1000 ease-out"
-                  style={`width: 0%`}
-                  data-target={skill.percentage}
-                />
-              </div>
-            </div>
-          ))
-        }
+<section id="about" class="py-40 relative">
+  <div class="max-w-7xl mx-auto px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-24">
+      <!-- Bio -->
+      <div class="reveal">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-8 h-[1px] bg-[#ff2b2b]"></div>
+          <h2
+            class="text-[#ff2b2b] font-bold tracking-[0.3em] uppercase text-[11px]"
+          >
+            About Me
+          </h2>
+        </div>
+        <h3
+          class="text-5xl md:text-6xl font-black tracking-tighter mb-10 dark:text-white text-black leading-tight"
+        >
+          I BUILD <br /> MODERN WEB <br /> SOLUTIONS.
+        </h3>
+        <p class="text-xl opacity-60 leading-relaxed mb-8 font-light italic">
+          "Simple design creates better experiences."
+        </p>
+        <p class="text-lg opacity-60 leading-relaxed mb-8">
+          I am a web developer focused on building modern, responsive, and
+          user-friendly web applications. I enjoy creating clean digital
+          experiences using Laravel, Vue.js, Astro.js, and Tailwind CSS.
+        </p>
       </div>
 
-      <div class="flex space-x-4">
-        <a
-          href="/public/CV_David_Nur_Hidayat.pdf"
-          download
-          class="px-8 py-3 bg-slate-900 text-white font-semibold text-sm rounded shadow-lg transition-transform hover:-translate-y-1 inline-block"
-        >
-          Download C.V
-        </a>
-        <button
-          class="px-8 py-3 bg-white text-slate-900 border border-gray-200 font-semibold text-sm rounded transition-all hover:bg-slate-50"
-        >
-          Contact Me
-        </button>
+      <!-- Stats & Skills -->
+      <div class="space-y-16">
+        <!-- Skills -->
+        <div class="reveal delay-300">
+          <p
+            class="text-[10px] font-bold tracking-[0.4em] uppercase opacity-30 mb-8"
+          >
+            SELECTED TECH STACK
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+            {
+              skills.map((skill) => (
+                <div class="grayscale hover:grayscale-0 group relative overflow-hidden border border-white/5 bg-white/[0.02] backdrop-blur-sm rounded-2xl p-6 flex flex-col items-center justify-center gap-4 hover:border-[#ff2b2b]/40 hover:bg-[#ff2b2b]/5 transition-all duration-500">
+                  {/* Glow */}
+                  <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#ff2b2b]/10 via-transparent to-transparent" />
+
+                  {/* Icon */}
+                  <Icon
+                    name={skill.icon}
+                    class="w-14 h-14 relative z-10 transition-transform duration-500 group-hover:scale-110 "
+                  />
+
+                  {/* Text */}
+                  <span class="relative z-10 text-sm font-semibold tracking-wide dark:text-white text-black opacity-70 group-hover:opacity-100 transition">
+                    {skill.name}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const bars = entry.target.querySelectorAll(".skill-progress");
-          bars.forEach((bar) => {
-            const target = bar.getAttribute("data-target");
-            (bar as HTMLElement).style.width = target + "%";
-          });
-        }
-      });
-    },
-    { threshold: 0.5 },
-  );
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const section = document.getElementById("about");
-    if (section) observer.observe(section);
-  });
-</script>

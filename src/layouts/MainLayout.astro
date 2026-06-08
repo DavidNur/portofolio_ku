@@ -1,9 +1,10 @@
 ---
 interface Props {
   title: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Premium personal portfolio" } = Astro.props;
 import "../styles/global.css";
 ---
 
@@ -11,101 +12,187 @@ import "../styles/global.css";
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Daniels Portfolio - Developer Portfolio"
-    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Preload Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <script is:inline>
+      // Handle theme transition
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+      window.localStorage.setItem("theme", theme);
+    </script>
   </head>
-  <body class="bg-white antialiased selection:bg-slate-900 selection:text-white"
-    ><div id="google_translate_element" hidden></div>
+  <body
+    class="bg-[#f7f7f7] dark:bg-[#050505] text-[#1a1a1a] dark:text-[#f7f7f7] transition-colors duration-500 ease-in-out font-sans selection:bg-[#ff2b2b] selection:text-white overflow-x-hidden"
+  >
+    <!-- Custom Cursor -->
+    <div
+      id="cursor"
+      class="hidden md:block fixed w-10 h-10 border border-[#ff2b2b] rounded-sm pointer-events-none z-[9999] transition-transform duration-150 ease-out -translate-x-1/2 -translate-y-1/2"
+    >
+    </div>
+    <div
+      id="cursor-dot"
+      class="hidden md:block fixed w-1.5 h-1.5 bg-[#ff2b2b] rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2"
+    >
+    </div>
+
     <slot />
+
+    <script>
+      // Intersection Observer for Reveal Animations
+      const revealCallback = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-visible");
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(revealCallback, {
+        threshold: 0.1,
+      });
+
+      document.querySelectorAll(".reveal").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Custom Cursor Logic
+      const cursor = document.getElementById("cursor");
+      const cursorDot = document.getElementById("cursor-dot");
+
+      document.addEventListener("mousemove", (e) => {
+        if (cursor && cursorDot) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+          cursorDot.style.left = e.clientX + "px";
+          cursorDot.style.top = e.clientY + "px";
+        }
+      });
+
+      document.addEventListener("mousedown", () => {
+        cursor?.classList.add("scale-75");
+      });
+
+      document.addEventListener("mouseup", () => {
+        cursor?.classList.remove("scale-75");
+      });
+
+      // Hover Effects
+      document.querySelectorAll("a, button").forEach((el) => {
+        el.addEventListener("mouseenter", () =>
+          cursor?.classList.add("scale-150", "bg-[#ff2b2b]/10"),
+        );
+        el.addEventListener("mouseleave", () =>
+          cursor?.classList.remove("scale-150", "bg-[#ff2b2b]/10"),
+        );
+      });
+    </script>
+
+    <style is:global>
+      :root {
+        --accent: #ff2b2b;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      @theme {
+        --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+        --font-display: "Outfit", sans-serif;
+      }
+
+      .font-black {
+        font-weight: 900;
+      }
+      .tracking-tighter {
+        letter-spacing: -0.05em;
+      }
+      .tracking-widest {
+        letter-spacing: 0.2em;
+      }
+
+      /* Reveal Animation Styles */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .reveal-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .delay-100 {
+        transition-delay: 100ms;
+      }
+      .delay-200 {
+        transition-delay: 200ms;
+      }
+      .delay-300 {
+        transition-delay: 300ms;
+      }
+
+      /* Smooth Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ff2b2b;
+        border-radius: 10px;
+      }
+
+      /* Animated Background Gradient */
+      .bg-animated-gradient {
+        background: linear-gradient(-45deg, #050505, #111111, #1a1a1a, #050505);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+    </style>
   </body>
 </html>
-
-<style is:global>
-  html {
-    scroll-behavior: smooth;
-  }
-
-  .typewriter-cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.2em;
-    background-color: white;
-    margin-left: 4px;
-    vertical-align: middle;
-    animation: blink 1s infinite;
-  }
-
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
-
-<script>
-  // Simple Scroll Reveal implementation
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-      }
-    });
-  }, observerOptions);
-
-  document.addEventListener("astro:page-load", () => {
-    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-  });
-
-  // Re-run for initial load
-  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
-</script>
-
-<script is:inline>
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {
-        pageLanguage: "id",
-        includedLanguages: "en,id",
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      },
-      "google_translate_element",
-    );
-  }
-</script>
-
-<script
-  is:inline
-  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-></script>
+  

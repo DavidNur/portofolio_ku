@@ -1,0 +1,104 @@
+---
+const experiences = [
+  {
+    role: "Junior Frontend Programmer",
+    company: "PT. Tiga Serangkai Inti Corpora",
+    period: "2025 - Present",
+    desc: "Identify and resolve frontend bugs, resulting in improved page load speed and a better overall user experience."
+  },
+  {
+    role: "Fullstack Developer (Internship)",
+    company: "PT Tiga Serangkai Pustaka Mandiri Group – Assalaam Hypermarket ",
+    period: "2024 - 2025",
+    desc: "create a web-based application for a member card system, manage purchase transaction data and create an admin dashboard"
+  },
+  {
+    role: "Fullstack Developer (Internship)",
+    company: "PT. Astra Otoparts, Tbk - Divisi Engineering Development Center",
+    period: "2023",
+    desc: "Develop a Process Planning Sheet System to input work process data and map the workpiece processing sequence."
+  }
+];
+
+const education = [
+  {
+    degree: "B.Sc in Informatics Engineering",
+    institution: "Tiga Serangkai University",
+    period: "2021 - 2025",
+  },
+  
+];
+---
+
+<section id="experience" class="py-40 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-16">
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-24">
+      <!-- Experience List -->
+      <div class="lg:col-span-3 reveal">
+         <div class="flex items-center gap-4 mb-6">
+           <div class="w-8 h-[1px] bg-[#ff2b2b]"></div>
+           <h2 class="text-[#ff2b2b] font-bold tracking-[0.3em] uppercase text-[11px]">Experience</h2>
+         </div>
+         <h3 class="text-5xl md:text-6xl font-black tracking-tighter mb-16 dark:text-white text-black leading-tight">
+          PROFESSIONAL <br /> JOURNEY
+         </h3>
+
+         <div class="relative space-y-16">
+            <!-- Timeline Line -->
+            <div class="absolute left-[3px] top-4 bottom-4 w-[1px] bg-black/10 dark:bg-white/10"></div>
+
+            {experiences.map(exp => (
+              <div class="relative pl-12 group">
+                <!-- Dot -->
+                <div class="absolute left-[-1px] top-[10px] w-2 h-2 rounded-full bg-[#ff2b2b] z-10 group-hover:scale-150 transition-all"></div>
+                
+                <span class="text-[10px] font-bold tracking-[0.3em] text-[#ff2b2b] mb-4 block uppercase opacity-60">{exp.period}</span>
+                <h4 class="text-3xl font-black tracking-tighter dark:text-white text-black mb-2">{exp.role}</h4>
+                <p class="text-xs font-bold tracking-widest opacity-30 mb-6 uppercase">{exp.company}</p>
+                <p class="text-lg opacity-60 leading-relaxed max-w-lg mb-8">{exp.desc}</p>
+                <div class="w-full h-px bg-black/[0.03] dark:bg-white/[0.03]"></div>
+              </div>
+            ))}
+         </div>
+      </div>
+
+      <!-- Education & Side Info -->
+      <div class="lg:col-span-2 space-y-24 reveal delay-200">
+         <div>
+            <div class="flex items-center gap-4 mb-8">
+              <div class="w-8 h-[1px] bg-black/20 dark:bg-white/20"></div>
+              <h2 class="font-bold tracking-[0.3em] uppercase text-[11px] opacity-40">Education</h2>
+            </div>
+            <div class="space-y-4">
+               {education.map(edu => (
+                 <div class="p-10 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 transition-all hover:border-[#ff2b2b]">
+                    <span class="text-[10px] font-bold tracking-[0.3em] opacity-30 mb-3 block">{edu.period}</span>
+                    <h4 class="text-xl font-black tracking-tighter dark:text-white text-black mb-2">{edu.degree}</h4>
+                    <p class="text-sm opacity-50 uppercase tracking-widest leading-loose">{edu.institution}</p>
+                 </div>
+               ))}
+            </div>
+         </div>
+
+         <!-- Resume Download Card -->
+         <div class="p-12 bg-[#ff2b2b] text-white relative group cursor-pointer overflow-hidden">
+            <!-- Diagonal Stripes Decor -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, white 10px, white 11px);"></div>
+            
+            <h4 class="text-4xl font-black tracking-tighter mb-6 relative z-10">WANT THE FULL DATA?</h4>
+            <p class="text-white/80 mb-10 max-w-xs text-lg font-light leading-relaxed relative z-10">Download my curated resume for a deep dive into my technical journey.</p>
+            <a 
+                href="/CV_DAVID_NUR_HIDAYAT.pdf"
+                download="CV_David_Nur_Hidayat.pdf"
+                class="block w-full relative z-10"
+              >
+            <button class="w-full py-4 bg-white text-black font-black text-xs tracking-[0.2em] flex items-center justify-center gap-4 hover:bg-black hover:text-white transition-all relative z-10 group/btn">
+                DOWNLOAD CV
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="group-hover/btn:translate-y-1 transition-transform"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+            </button>
+            </a>
+         </div>
+      </div>
+    </div>
+  </div>
+</section>

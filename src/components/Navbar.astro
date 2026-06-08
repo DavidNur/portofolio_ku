@@ -1,161 +1,146 @@
 ---
-const navLinks = [
-  "Home",
-  "About",
-  "Services",
-  "Works",
-  "Clients",
-  "Blog",
-  "Contact",
+import ThemeToggle from "./ThemeToggle.astro";
+
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
 ];
 ---
 
 <nav
-  id="main-nav"
-  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6 bg-transparent"
+  id="navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300 h-24 flex items-center border-b border-black/[0.03] dark:border-white/[0.05] backdrop-blur-xl"
 >
-  <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+  <div class="max-w-7xl w-full mx-auto px-16 flex items-center justify-between">
+    <!-- Logo -->
     <a
-      href="#"
-      class="text-xl font-display font-bold tracking-widest text-white transition-colors duration-300"
-      id="nav-logo"
+      href="#home"
+      class="text-2xl font-display font-black tracking-tighter group flex items-center gap-2"
     >
-      HIDAYAT
+      <div
+        class="w-8 h-8 bg-[#ff2b2b] rounded-sm flex items-center justify-center text-black text-lg"
+      >
+        D
+      </div>
+      <span class="dark:text-white text-black uppercase"
+        >DAVID<span class="text-[#ff2b2b]">.</span></span
+      >
     </a>
 
-    <div class="hidden md:flex space-x-8">
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center gap-10">
       {
-        navLinks.map((link) => (
+        navItems.map((item) => (
           <a
-            href={`#${link.toLowerCase()}`}
-            class="nav-link text-sm font-medium transition-colors text-white opacity-80 hover:opacity-100 relative group overflow-hidden"
+            href={item.href}
+            class="text-[11px] font-bold uppercase tracking-[0.2em] opacity-50 hover:opacity-100 hover:text-[#ff2b2b] transition-all relative group"
           >
-            {link}
-            <span class="absolute bottom-0 left-0 w-full h-[2px] bg-white transition-transform duration-300 translate-x-[-101%] group-hover:translate-x-0" />
+            {item.name}
           </a>
         ))
       }
-      <button
-        id="lang-toggle"
-        class="lang-btn px-4 py-2 rounded-full bg-white/10 text-white text-xs font-bold backdrop-blur transition hover:bg-white hover:text-slate-900"
+    </div>
+
+    <!-- Right Side -->
+    <div class="flex items-center gap-6">
+      <ThemeToggle />
+
+      <!-- <button
+        class="hidden md:block px-6 py-2.5 bg-[#ff2b2b] text-white text-[11px] font-bold uppercase tracking-widest hover:bg-black dark:hover:bg-white dark:hover:text-black transition-all"
       >
-        EN
+        Hire Me
+      </button> -->
+
+      <!-- Mobile Menu Toggle -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-sm bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="dark:text-white text-black"
+          ><line x1="4" x2="20" y1="12" y2="12"></line><line
+            x1="4"
+            x2="20"
+            y1="6"
+            y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg
+        >
       </button>
     </div>
   </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 bg-white dark:bg-[#050505] z-[-1] translate-x-full transition-transform duration-500 md:hidden flex flex-col items-center justify-center gap-8"
+  >
+    {
+      navItems.map((item) => (
+        <a
+          href={item.href}
+          class="mobile-nav-link text-3xl font-display font-bold opacity-70 hover:opacity-100 hover:text-[#ff2b2b] tracking-tight"
+        >
+          {item.name}
+        </a>
+      ))
+    }
+  </div>
 </nav>
-<div id="google_translate_element" class="hidden"></div>
 
 <script is:inline>
-  const nav = document.getElementById("main-nav");
-  const logo = document.getElementById("nav-logo");
-  const links = document.querySelectorAll(".nav-link");
-  const underlineColors = document.querySelectorAll(".nav-link span");
-  const langBtn = document.getElementById("lang-toggle");
+  const nav = document.getElementById("navbar");
+  const mobileBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
 
-  const updateNav = () => {
-    if (window.scrollY > 50) {
-      langBtn?.classList.remove("text-white", "bg-white/10");
-      langBtn?.classList.add("text-slate-900", "bg-slate-100");
-
-      nav?.classList.remove("bg-transparent", "py-6");
+  // Sticky effect
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 20) {
       nav?.classList.add(
-        "bg-white/90",
-        "backdrop-blur-md",
+        "bg-white/80",
+        "dark:bg-[#050505]/80",
+        "backdrop-blur-xl",
         "py-4",
-        "shadow-sm",
+        "border-b",
+        "border-black/5",
+        "dark:border-white/5",
       );
-
-      logo?.classList.remove("text-white");
-      logo?.classList.add("text-slate-900");
-
-      links.forEach((l) => {
-        l.classList.remove("text-white", "opacity-80");
-        l.classList.add("text-slate-700", "opacity-100");
-      });
-
-      underlineColors.forEach((s) => {
-        s.classList.remove("bg-white");
-        s.classList.add("bg-slate-900");
-      });
+      nav?.classList.remove("py-6");
     } else {
-      langBtn?.classList.add("text-white", "bg-white/10");
-      langBtn?.classList.remove("text-slate-900", "bg-slate-100");
-
-      nav?.classList.add("bg-transparent", "py-6");
       nav?.classList.remove(
-        "bg-white/90",
-        "backdrop-blur-md",
+        "bg-white/80",
+        "dark:bg-[#050505]/80",
+        "backdrop-blur-xl",
         "py-4",
-        "shadow-sm",
+        "border-b",
+        "border-black/5",
+        "dark:border-white/5",
       );
-
-      logo?.classList.add("text-white");
-      logo?.classList.remove("text-slate-900");
-
-      links.forEach((l) => {
-        l.classList.add("text-white", "opacity-80");
-        l.classList.remove("text-slate-700", "opacity-100");
-      });
-
-      underlineColors.forEach((s) => {
-        s.classList.add("bg-white");
-        s.classList.remove("bg-slate-900");
-      });
+      nav?.classList.add("py-6");
     }
-  };
-
-  window.addEventListener("scroll", updateNav);
-  updateNav();
-
-  window.googleTranslateElementInit = function () {
-    new google.translate.TranslateElement(
-      {
-        pageLanguage: "id",
-        includedLanguages: "id,en",
-        autoDisplay: false,
-      },
-      "google_translate_element",
-    );
-  };
-
-  function setLanguage(lang) {
-    const timer = setInterval(() => {
-      const select = document.querySelector(".goog-te-combo");
-
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event("change"));
-        localStorage.setItem("lang", lang);
-        clearInterval(timer);
-      }
-    }, 300);
-  }
-
-  langBtn?.addEventListener("click", () => {
-    const currentLang = localStorage.getItem("lang") || "id";
-    const nextLang = currentLang === "id" ? "en" : "id";
-
-    setLanguage(nextLang);
-    langBtn.textContent = nextLang === "id" ? "EN" : "ID";
   });
 
-  setTimeout(() => {
-    const savedLang = localStorage.getItem("lang");
+  // Mobile menu toggle
+  mobileBtn?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("translate-x-full");
+    document.body.classList.toggle("overflow-hidden");
+  });
 
-    if (savedLang && savedLang !== "id") {
-      setLanguage(savedLang);
-      if (langBtn) langBtn.textContent = "ID";
-    }
-  }, 1000);
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("translate-x-full");
+      document.body.classList.remove("overflow-hidden");
+    });
+  });
 </script>
-
-<script
-  is:inline
-  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-></script>
-
-<script
-  is:inline
-  src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
-></script>

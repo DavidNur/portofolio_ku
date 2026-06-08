@@ -1,0 +1,95 @@
+---
+const testimonials = [
+  {
+    name: "Alex Johnson",
+    role: "CEO TechStack",
+    avatar: "https://i.pravatar.cc/150?u=alex",
+    text: "Working with David was a game-changer. His attention to detail and ability to translate complex ideas into elegant UI is unmatched.",
+  },
+  {
+    name: "Sarah Miller",
+    role: "Product Designer @ Flow",
+    avatar: "https://i.pravatar.cc/150?u=sarah",
+    text: "David brought our vision to life. The final product exceeded our expectations in both design and performance.",
+  },
+  {
+    name: "Robert Chen",
+    role: "Founder Zenith",
+    avatar: "https://i.pravatar.cc/150?u=robert",
+    text: "A true professional. David's clean code and minimalist design style perfectly aligned with our brand's mission.",
+  },
+];
+---
+
+<section class="py-40 bg-black/5 dark:bg-black/20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-16">
+    <div class="flex flex-col items-center text-center mb-24 reveal">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-8 h-[1px] bg-[#ff2b2b]"></div>
+        <h2
+          class="text-[#ff2b2b] font-bold tracking-[0.3em] uppercase text-[11px]"
+        >
+          Testimonials
+        </h2>
+        <div class="w-8 h-[1px] bg-[#ff2b2b]"></div>
+      </div>
+      <h3
+        class="text-5xl md:text-7xl font-black tracking-tighter dark:text-white text-black uppercase"
+      >
+        CLIENT VOICES
+      </h3>
+    </div>
+
+    <div class="relative">
+      <!-- Carousel Track -->
+      <div
+        id="testimonial-track"
+        class="grid grid-cols-1 md:grid-cols-3 gap-1 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5"
+      >
+        {
+          testimonials.map((item) => (
+            <div class="p-12 bg-white dark:bg-[#050505] group transition-all duration-500 hover:bg-[#ff2b2b] hover:text-white">
+              <div class="mb-10 text-[#ff2b2b] group-hover:text-white transition-colors">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11.5H12.017V9C12.017 7.34315 13.3601 6 15.017 6H19.017C20.6739 6 22.017 7.34315 22.017 9V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM2.017 21L2.017 18C2.017 16.8954 2.91242 16 4.017 16H7.017C7.56928 16 8.017 15.5523 8.017 15V9C8.017 8.44772 7.56928 8 7.017 8H3.017C2.46472 8 2.017 8.44772 2.017 9V11.5H0.017V9C0.017 7.34315 1.36015 6 3.017 6H7.017C8.67386 6 10.017 7.34315 10.017 9V15C10.017 18.3137 7.33071 21 4.017 21H2.017Z" />
+                </svg>
+              </div>
+              <p class="text-xl font-light leading-relaxed mb-12 opacity-80 group-hover:opacity-100 italic">
+                "{item.text}"
+              </p>
+              <div class="flex items-center gap-4">
+                <img
+                  src={item.avatar}
+                  alt={item.name}
+                  class="w-12 h-12 rounded-sm object-cover border border-black/5 dark:border-white/5 grayscale group-hover:grayscale-0 transition-all"
+                  referrerpolicy="no-referrer"
+                />
+                <div>
+                  <h5 class="text-sm font-black tracking-tight dark:text-white text-black group-hover:text-white uppercase">
+                    {item.name}
+                  </h5>
+                  <p class="text-[9px] uppercase tracking-widest font-bold opacity-30 group-hover:opacity-60">
+                    {item.role}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Scroll Buttons -->
+      <div class="flex justify-center gap-3 mt-16">
+        <div class="w-12 h-px bg-[#ff2b2b]"></div>
+        <div class="w-8 h-px bg-black/10 dark:bg-white/10"></div>
+        <div class="w-8 h-px bg-black/10 dark:bg-white/10"></div>
+      </div>
+    </div>
+  </div>
+</section>
